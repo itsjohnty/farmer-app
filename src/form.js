@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './Form.css';
+
 function Form() {
   const [formData, setFormData] = useState({
     name: "",
@@ -10,16 +11,19 @@ function Form() {
     firstVisitDate: "",
     cropPlanned: "",
     proposedSowingDate: "",
-    visits: [],
+    visits: "",
     popAdopted: "",
-    gpsPhoto: null
+    gpsPhoto: ""
   });
 
   const handleChange = e => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    localStorage.setItem("formData", JSON.stringify(formData));
+    window.alert("Form submitted successfully!");
   };
 
   const handleVisit = e => {
@@ -59,24 +63,6 @@ function Form() {
     });
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    localStorage.setItem("formData", JSON.stringify(formData));
-    setFormData({
-      name: "",
-      spouseName: "",
-      village: "",
-      block: "",
-      district: "",
-      firstVisitDate: "",
-      cropPlanned: "",
-      proposedSowingDate: "",
-      visits: "",
-      popAdopted: "",
-      gpsPhoto: ""
-    });
-    window.alert("Form submitted successfully!");
-  };
 
   return (
     <form onSubmit={handleSubmit}>
